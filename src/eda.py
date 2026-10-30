@@ -84,7 +84,7 @@ def generate_eda_visualizations(df: pd.DataFrame = None) -> list:
     # -------------------------------------------------------------
     fig, (ax_box, ax_kde) = plt.subplots(2, 1, figsize=(9, 7), sharex=True, gridspec_kw={"height_ratios": [0.3, 0.7]})
     
-    sns.boxplot(data=analysis_df, x="age", y=config.TARGET_COL, orient="h", palette=HEALTHCARE_PALETTE, ax=ax_box)
+    sns.boxplot(data=analysis_df, x="age", y=config.TARGET_COL, orient="h", hue=config.TARGET_COL, palette=HEALTHCARE_PALETTE, legend=False, ax=ax_box)
     ax_box.set(yticks=[0, 1], yticklabels=["No Stroke", "Stroke"], xlabel="", ylabel="")
     ax_box.set_title("Age Distribution Stratified by Stroke Status", pad=12, fontweight="bold", color="#0f2942")
 
@@ -119,7 +119,7 @@ def generate_eda_visualizations(df: pd.DataFrame = None) -> list:
     # -------------------------------------------------------------
     fig, (ax_box, ax_hist) = plt.subplots(2, 1, figsize=(9, 7), sharex=True, gridspec_kw={"height_ratios": [0.3, 0.7]})
     
-    sns.boxplot(data=analysis_df, x="avg_glucose_level", y=config.TARGET_COL, orient="h", palette=HEALTHCARE_PALETTE, ax=ax_box)
+    sns.boxplot(data=analysis_df, x="avg_glucose_level", y=config.TARGET_COL, orient="h", hue=config.TARGET_COL, palette=HEALTHCARE_PALETTE, legend=False, ax=ax_box)
     ax_box.set(yticks=[0, 1], yticklabels=["No Stroke", "Stroke"], xlabel="", ylabel="")
     ax_box.set_title("Average Blood Glucose Level (mg/dL) vs. Stroke Occurrence", pad=12, fontweight="bold", color="#0f2942")
 

@@ -10,3 +10,7 @@ env/
 Thumbs.db
 data/uploads/*
 !data/uploads/.gitkeep
+TrueTest/
+scratch/
+healthcare-dataset-stroke-data.csv
+models/fontlist*.json

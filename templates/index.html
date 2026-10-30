@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroke Risk Prediction Using Machine Learning | Health Informatics Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Healthcare Navigation Bar -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>Stroke Risk Prediction</h1>
+                    <span class="sub-badge">Health Informatics ML Suite</span>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="nav-menu">
+                <button class="nav-tab active" data-target="page-dashboard">
+                    <span class="nav-icon">📊</span> Dashboard
+                </button>
+                <button class="nav-tab" data-target="page-dataset">
+                    <span class="nav-icon">📁</span> Dataset Explorer
+                </button>
+                <button class="nav-tab" data-target="page-preprocessing">
+                    <span class="nav-icon">⚙️</span> Preprocessing
+                </button>
+                <button class="nav-tab" data-target="page-eda">
+                    <span class="nav-icon">📈</span> EDA Visualizations
+                </button>
+                <button class="nav-tab" data-target="page-training">
+                    <span class="nav-icon">🧠</span> Model Training
+                </button>
+                <button class="nav-tab" data-target="page-evaluation">
+                    <span class="nav-icon">🎯</span> Model Evaluation
+                </button>
+                <button class="nav-tab highlight-tab" data-target="page-prediction">
+                    <span class="nav-icon">🩺</span> Clinical Predictor
+                </button>
+            </nav>
+
+            <div class="header-status">
+                <span class="status-indicator online"></span>
+                <span id="systemStatusText">Champion Model: Loaded</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-wrapper">
+
+        <!-- ======================================================== -->
+        <!-- 1. DASHBOARD PAGE -->
+        <!-- ======================================================== -->
+        <section id="page-dashboard" class="page-section active">
+            <div class="section-hero">
+                <div class="hero-content">
+                    <span class="pill-tag">Postgraduate Health Informatics Demonstration</span>
+                    <h2>Stroke Risk Prediction Using Machine Learning</h2>
+                    <p class="hero-desc">
+                        A rigorous, end-to-end Machine Learning pipeline analyzing patient physiological, demographic,
+                        and vascular parameters to estimate acute cerebrovascular accident (stroke) risk.
+                        Designed to illustrate clinical data preprocessing, leakage-free pipelines, severe class imbalance mitigation,
+                        stratified hyperparameter tuning, and evidence-grounded risk driver explanations.
+                    </p>
+                </div>
+                <div class="hero-kpis" id="heroKpis">
+                    <div class="kpi-card">
+                        <span class="kpi-label">Cohort Size</span>
+                        <span class="kpi-value" id="kpiTotalPatients">5,110</span>
+                        <span class="kpi-sub">Kaggle Healthcare Cohort</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-label">Positive Stroke Rate</span>
+                        <span class="kpi-value warning-text" id="kpiStrokeRate">4.87%</span>
+                        <span class="kpi-sub">Imbalance Ratio ~1:19.5</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-label">Champion Model</span>
+                        <span class="kpi-value" id="kpiChampionModel">Logistic Reg.</span>
+                        <span class="kpi-sub">Cost-Balanced Weights</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-label">Screening Recall</span>
+                        <span class="kpi-value success-text" id="kpiChampionRecall">80.0%</span>
+                        <span class="kpi-sub">Sensitivity (Minimizing FN)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Architecture Diagram -->
+            <div class="card full-width mt-4">
+                <div class="card-header">
+                    <h3>🏥 End-to-End Machine Learning Healthcare Workflow</h3>
+                    <span class="badge-blue">Clinical Informatics Pipeline</span>
+                </div>
+                <div class="card-body">
+                    <div class="workflow-steps">
+                        <div class="step-card">
+                            <div class="step-num">01</div>
+                            <h4>Data Ingestion</h4>
+                            <p>Loading multi-parametric cohort (5,110 patients, 12 features) covering demographics, vascular comorbidities, and metabolic indicators.</p>
+                        </div>
+                        <div class="step-arrow">➔</div>
+                        <div class="step-card">
+                            <div class="step-num">02</div>
+                            <h4>Preprocessing Pipeline</h4>
+                            <p>Zero-leakage ColumnTransformer: median imputation for missing BMI, one-hot encoding, and feature standardization strictly fitted on train folds.</p>
+                        </div>
+                        <div class="step-arrow">➔</div>
+                        <div class="step-card">
+                            <div class="step-num">03</div>
+                            <h4>Imbalance Handling</h4>
+                            <p>Stratified 80/20 train-test partitioning coupled with cost-sensitive class weighting to counteract 95.1% negative class dominance.</p>
+                        </div>
+                        <div class="step-arrow">➔</div>
+                        <div class="step-card">
+                            <div class="step-num">04</div>
+                            <h4>Model Tuning</h4>
+                            <p>Stratified 5-Fold Grid Search comparing Logistic Regression vs. Random Forest optimising for ROC-AUC and Screening Recall.</p>
+                        </div>
+                        <div class="step-arrow">➔</div>
+                        <div class="step-card">
+                            <div class="step-num">05</div>
+                            <h4>Evaluation & Inference</h4>
+                            <p>Evaluating held-out test split, plotting ROC and PR curves, and deploying interactive clinical predictor with risk factor explanations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access Grid -->
+            <div class="two-col-grid mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📌 Why Recall & PR-AUC Matter in Stroke Triage</h3>
+                    </div>
+                    <div class="card-body text-block">
+                        <p>In medical informatics, stroke prediction represents a classic high-stakes, imbalanced classification problem. Stroke prevalence in general outpatient cohorts is approximately <strong>4.9%</strong>.</p>
+                        <ul class="styled-list">
+                            <li><strong>The Accuracy Paradox:</strong> A trivial model that blindly predicts "No Stroke" for every patient achieves ~95.1% accuracy while failing 100% of patients who actually suffer a stroke.</li>
+                            <li><strong>High Recall (Sensitivity):</strong> In clinical screening, missing a stroke (a False Negative) can be fatal. A screening model must prioritize capturing genuine positive cases.</li>
+                            <li><strong>PR-AUC Metric:</strong> Unlike the ROC curve which can present an overly optimistic assessment due to a massive True Negative pool, Precision-Recall AUC directly inspects the positive predictive trade-off.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>⚖️ Mandatory Educational & Clinical Disclaimer</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="disclaimer-box">
+                            <div class="disclaimer-icon">⚠️</div>
+                            <div class="disclaimer-text">
+                                <h4>Educational Demonstration Model Only</h4>
+                                <p>
+                                    This software application has been built exclusively for academic demonstration and health informatics coursework.
+                                    The predicted probabilities and risk classifications are statistical estimates generated from historical survey records.
+                                    <strong>This tool is NOT a certified medical diagnostic device and MUST NOT be utilized for individual clinical diagnosis, emergency triage, or patient treatment decisions.</strong>
+                                    Always consult licensed physicians and qualified healthcare specialists for medical evaluation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 2. DATASET EXPLORER PAGE -->
+        <!-- ======================================================== -->
+        <section id="page-dataset" class="page-section">
+            <div class="section-title-bar">
+                <div>
+                    <h2>📁 Dataset Explorer & Summary Statistics</h2>
+                    <p class="section-sub">Inspect cohort parameters, missingness, demographic distribution, and upload custom datasets.</p>
+                </div>
+                <div class="title-actions">
+                    <button class="btn btn-outline" id="btnRefreshDataset">🔄 Refresh Data</button>
+                </div>
+            </div>
+
+            <!-- Stats Overview Cards -->
+            <div class="kpi-grid-4 mt-3" id="datasetStatsGrid">
+                <div class="stat-box">
+                    <span class="stat-title">Total Records</span>
+                    <span class="stat-number" id="dsTotalRows">5,110</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-title">Features Analyzed</span>
+                    <span class="stat-number" id="dsTotalFeatures">11 Predictors</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-title">Duplicate Rows</span>
+                    <span class="stat-number text-success" id="dsDuplicates">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-title">Target Variable</span>
+                    <span class="stat-number">stroke (0/1)</span>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>📤 Upload Custom Stroke Dataset (CSV)</h3>
+                    <span class="badge-gray">Schema Validation Enabled</span>
+                </div>
+                <div class="card-body">
+                    <form id="uploadCsvForm" class="upload-container" enctype="multipart/form-data">
+                        <div class="upload-dropzone" id="dropZone">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p class="dropzone-text">Click or drag a CSV dataset here to upload</p>
+                            <span class="dropzone-sub">Required features: gender, age, hypertension, heart_disease, avg_glucose_level, bmi, smoking_status, work_type, Residence_type, stroke</span>
+                            <input type="file" id="csvFileInput" name="file" accept=".csv" class="file-input">
+                        </div>
+                        <div class="upload-controls">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="retrainOnUpload" name="retrain">
+                                <span>Automatically retrain and evaluate ML models after successful upload</span>
+                            </label>
+                            <button type="submit" class="btn btn-primary" id="btnUploadSubmit">
+                                <span>Upload & Process CSV</span>
+                            </button>
+                        </div>
+                    </form>
+                    <div id="uploadFeedback" class="feedback-alert hidden"></div>
+                </div>
+            </div>
+
+            <!-- Dataset Table Preview -->
+            <div class="card mt-4">
+                <div class="card-header flex-between">
+                    <h3>🔍 Cohort Data Preview (First 15 Patients)</h3>
+                    <span class="table-tag" id="previewRowCounter">Showing 15 of 5,110 rows</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="data-table" id="datasetPreviewTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Hypertension</th>
+                                    <th>Heart Disease</th>
+                                    <th>Ever Married</th>
+                                    <th>Work Type</th>
+                                    <th>Residence</th>
+                                    <th>Avg Glucose</th>
+                                    <th>BMI</th>
+                                    <th>Smoking Status</th>
+                                    <th>Stroke (Target)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="datasetPreviewBody">
+                                <tr>
+                                    <td colspan="12" class="text-center py-4">Loading dataset records...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 3. DATA PREPROCESSING PAGE -->
+        <!-- ======================================================== -->
+        <section id="page-preprocessing" class="page-section">
+            <div class="section-title-bar">
+                <div>
+                    <h2>⚙️ Data Preprocessing & Leakage Prevention</h2>
+                    <p class="section-sub">Step-by-step breakdown of feature transformations, imputation, scaling, and stratified splitting.</p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3>🛡️ Zero Data Leakage Guarantee</h3>
+                    <span class="badge-blue">Scikit-learn Pipeline & ColumnTransformer</span>
+                </div>
+                <div class="card-body text-block">
+                    <p>
+                        A frequent pitfall in clinical predictive modeling is <strong>Data Leakage</strong>—when statistical parameters (such as mean imputation values or standard deviation scaling factors) are computed over the full dataset before partitioning into train and test sets.
+                    </p>
+                    <p>
+                        In our implementation, all imputation, standardization, and one-hot encoding estimators are wrapped within a <code>ColumnTransformer</code> and integrated into an end-to-end <code>Pipeline</code>. Fitting (<code>fit</code>) occurs <em>solely</em> on the 80% training partition. The held-out 20% test partition is only transformed (<code>transform</code>), guaranteeing that test evaluations represent genuine unseen clinical performance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="preprocessing-timeline mt-4" id="preprocessingStepsContainer">
+                <!-- Dynamically populated or rendered -->
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 4. EDA VISUALIZATIONS PAGE -->
+        <!-- ======================================================== -->
+        <section id="page-eda" class="page-section">
+            <div class="section-title-bar">
+                <div>
+                    <h2>📈 Exploratory Data Analysis (EDA)</h2>
+                    <p class="section-sub">Clinical visualizations exploring class distributions, physiological risk factors, and vascular comorbidities.</p>
+                </div>
+                <div class="title-actions">
+                    <button class="btn btn-outline" id="btnRefreshEda">🔄 Re-generate Charts</button>
+                </div>
+            </div>
+
+            <div class="eda-gallery mt-3" id="edaGalleryContainer">
+                <!-- Visualizations loaded dynamically from API -->
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 5. MODEL TRAINING PAGE -->
+        <!-- ======================================================== -->
+        <section id="page-training" class="page-section">
+            <div class="section-title-bar">
+                <div>
+                    <h2>🧠 Model Training & Hyperparameter Tuning</h2>
+                    <p class="section-sub">Stratified 5-Fold Cross Validation comparing Logistic Regression vs. Random Forest Classifier.</p>
+                </div>
+                <div class="title-actions">
+                    <button class="btn btn-primary" id="btnTriggerRetrain">⚡ Re-run Full Training Pipeline</button>
+                </div>
+            </div>
+
+            <div class="training-overview-grid mt-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Model 1: Logistic Regression</h3>
+                        <span class="badge-blue">Linear Probabilistic Baseline</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="spec-list">
+                            <li><strong>Class Imbalance Strategy:</strong> <code>class_weight='balanced'</code></li>
+                            <li><strong>Validation Scheme:</strong> Stratified 5-Fold Cross Validation</li>
+                            <li><strong>Optimization Metric:</strong> ROC-AUC Scoring</li>
+                            <li><strong>Grid Search Hyperparameters:</strong>
+                                <ul>
+                                    <li>Regularization strength: <code>C ∈ [0.01, 0.1, 1.0, 10.0]</code></li>
+                                    <li>Optimization solver: <code>['lbfgs', 'liblinear']</code></li>
+                                    <li>Penalty norm: <code>L2</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>Optimal Parameters Found:</strong> <code id="lrBestParams">C=0.01, solver='liblinear'</code></li>
+                            <li><strong>Cross-Validated ROC-AUC:</strong> <span class="badge-success" id="lrCvScore">0.8397</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Model 2: Random Forest Classifier</h3>
+                        <span class="badge-blue">Non-Linear Ensemble Architecture</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="spec-list">
+                            <li><strong>Class Imbalance Strategy:</strong> <code>class_weight='balanced'</code></li>
+                            <li><strong>Validation Scheme:</strong> Stratified 5-Fold Cross Validation</li>
+                            <li><strong>Optimization Metric:</strong> ROC-AUC Scoring</li>
+                            <li><strong>Grid Search Hyperparameters:</strong>
+                                <ul>
+                                    <li>Number of decision trees: <code>n_estimators ∈ [50, 100, 200]</code></li>
+                                    <li>Maximum tree depth: <code>max_depth ∈ [None, 6, 12]</code></li>
+                                    <li>Minimum split samples: <code>min_samples_split ∈ [2, 5]</code></li>
+                                    <li>Minimum leaf samples: <code>min_samples_leaf ∈ [1, 2]</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>Optimal Parameters Found:</strong> <code id="rfBestParams">max_depth=6, n_estimators=200</code></li>
+                            <li><strong>Cross-Validated ROC-AUC:</strong> <span class="badge-success" id="rfCvScore">0.8216</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>🏆 Model Selection Decision Rationale</h3>
+                </div>
+                <div class="card-body">
+                    <div class="rationale-banner">
+                        <div class="rationale-badge">Selected Champion: <span id="championModelName">Logistic Regression</span></div>
+                        <p id="championRationaleText" class="mt-2 text-muted">
+                            Logistic Regression was selected as the champion model. It achieved superior cross-validated ROC-AUC (0.8397) and high sensitivity/recall (80.0%), which is critical in acute stroke screening to prevent missed life-threatening cases. Its linear log-odds coefficients also provide clinical interpretability essential in healthcare.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 6. MODEL EVALUATION PAGE -->
+        <!-- ======================================================== -->
+        <section id="page-evaluation" class="page-section">
+            <div class="section-title-bar">
+                <div>
+                    <h2>🎯 Model Evaluation on Held-Out Test Set</h2>
+                    <p class="section-sub">Diagnostic comparison on 1,022 unseen patient records with clinical screening metrics.</p>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3>📊 Performance Metrics Comparison (Held-Out 20% Test Split)</h3>
+                    <span class="badge-gray">N = 1,022 Patients</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="data-table" id="modelComparisonTable">
+                            <thead>
+                                <tr>
+                                    <th>Evaluated Model</th>
+                                    <th>Accuracy</th>
+                                    <th>Recall (Sensitivity) 🌟</th>
+                                    <th>Precision</th>
+                                    <th>Specificity</th>
+                                    <th>F1-Score</th>
+                                    <th>ROC-AUC Score 🌟</th>
+                                    <th>PR-AUC (Avg. Prec.) 🌟</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="highlight-row">
+                                    <td><strong>Logistic Regression (Champion)</strong></td>
+                                    <td id="lrAcc">72.21%</td>
+                                    <td><strong class="text-success" id="lrRecall">80.00%</strong></td>
+                                    <td id="lrPrec">12.74%</td>
+                                    <td id="lrSpec">71.81%</td>
+                                    <td id="lrF1">0.2198</td>
+                                    <td><strong class="text-primary" id="lrRocAuc">0.8379</strong></td>
+                                    <td><strong class="text-primary" id="lrPrAuc">0.2478</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Random Forest Classifier</strong></td>
+                                    <td id="rfAcc">68.88%</td>
+                                    <td><strong class="text-success" id="rfRecall">80.00%</strong></td>
+                                    <td id="rfPrec">11.49%</td>
+                                    <td id="rfSpec">68.31%</td>
+                                    <td id="rfF1">0.2010</td>
+                                    <td id="rfRocAuc">0.8197</td>
+                                    <td id="rfPrAuc">0.1978</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Evaluation Guidance Banner -->
+            <div class="guidance-card mt-4">
+                <div class="guidance-icon">💡</div>
+                <div class="guidance-content">
+                    <h4>Clinical Informatics Guidance: Why Emphasize Recall and PR-AUC?</h4>
+                    <p>
+                        In acute medical screening where the event rate is ~4.9%, conventional Accuracy is inflated by predicting the majority class.
+                        <strong>Recall (Sensitivity = 80.0%)</strong> indicates that out of 50 actual stroke cases in the unseen test cohort, 40 were correctly flagged, leaving only 10 False Negatives.
+                        Furthermore, <strong>PR-AUC (0.2478)</strong> demonstrates a more than 5-fold lift over the random prevalence baseline (0.0489), proving substantial discriminatory capacity under extreme class imbalance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Visual Diagnostic Plots -->
+            <div class="two-col-grid mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Confusion Matrices Comparison</h3>
+                        <span class="badge-blue">Test Set Actual vs Predicted</span>
+                    </div>
+                    <div class="card-body">
+                        <img src="/static/images/eval_confusion_matrices.png" alt="Confusion Matrices" class="evaluation-chart-img" id="imgConfusionMatrices">
+                        <p class="chart-caption">
+                            <strong>Interpretation:</strong> Logistic Regression correctly identifies 40 out of 50 positive stroke cases with 698 True Negatives and 274 False Positives. Random Forest flags the same 40 stroke cases but generates slightly more False Positives (308).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>ROC and Precision-Recall Curves</h3>
+                        <span class="badge-blue">Threshold Invariant Performance</span>
+                    </div>
+                    <div class="card-body">
+                        <img src="/static/images/eval_roc_pr_curves.png" alt="ROC and PR Curves" class="evaluation-chart-img" id="imgRocPrCurves">
+                        <p class="chart-caption">
+                            <strong>Interpretation:</strong> Left: ROC Curves show strong separation above the diagonal random line (LR AUC = 0.838). Right: Precision-Recall Curves demonstrate substantial positive predictive lift over the 4.89% prevalence baseline.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 7. STROKE PREDICTION PAGE (CLINICAL PREDICTOR) -->
+        <!-- ======================================================== -->
+        <section id="page-prediction" class="page-section">
+            <div class="section-title-bar">
+                <div>
+                    <h2>🩺 Interactive Stroke Risk Predictor</h2>
+                    <p class="section-sub">Enter patient parameters to estimate probability and view personalized influential risk factor drivers.</p>
+                </div>
+            </div>
+
+            <!-- Demo Patient Profile Presets -->
+            <div class="card preset-card mt-3">
+                <div class="card-header">
+                    <h4>⚡ Quick Load Demonstration Patient Profiles</h4>
+                    <span class="badge-gray">One-click Clinical Vignettes for Viva/Practical</span>
+                </div>
+                <div class="card-body">
+                    <div class="preset-buttons">
+                        <button type="button" class="btn btn-preset danger" id="btnPresetHigh">
+                            <span class="preset-icon">🚨</span>
+                            <div>
+                                <strong>Profile A: High-Risk Elderly</strong>
+                                <small>Age 72, Glucose 215, Hypertension, Heart Disease, Smoker</small>
+                            </div>
+                        </button>
+                        <button type="button" class="btn btn-preset success" id="btnPresetLow">
+                            <span class="preset-icon">✅</span>
+                            <div>
+                                <strong>Profile B: Healthy Young Adult</strong>
+                                <small>Age 24, Glucose 88, BMI 21.8, No Hypertension, Non-smoker</small>
+                            </div>
+                        </button>
+                        <button type="button" class="btn btn-preset warning" id="btnPresetMod">
+                            <span class="preset-icon">⚠️</span>
+                            <div>
+                                <strong>Profile C: Middle-Aged Borderline</strong>
+                                <small>Age 55, Glucose 148, Hypertension, Former Smoker</small>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Form and Output Layout -->
+            <div class="prediction-grid mt-4">
+                <!-- Patient Input Form -->
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h3>📋 Patient Physiological & Demographic Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="predictionForm" novalidate>
+                            <div class="form-grid">
+                                <!-- Age -->
+                                <div class="form-group">
+                                    <label for="inputAge">Age (Years) <span class="required">*</span></label>
+                                    <input type="number" id="inputAge" name="age" min="1" max="110" step="1" value="65" required class="form-control">
+                                    <small class="field-hint">Range: 1 – 110 years</small>
+                                </div>
+
+                                <!-- Gender -->
+                                <div class="form-group">
+                                    <label for="inputGender">Biological Sex <span class="required">*</span></label>
+                                    <select id="inputGender" name="gender" class="form-control" required>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <small class="field-hint">Demographic category</small>
+                                </div>
+
+                                <!-- Hypertension -->
+                                <div class="form-group">
+                                    <label for="inputHypertension">Documented Hypertension <span class="required">*</span></label>
+                                    <select id="inputHypertension" name="hypertension" class="form-control" required>
+                                        <option value="0">No (Normotensive)</option>
+                                        <option value="1">Yes (Chronic Hypertension)</option>
+                                    </select>
+                                    <small class="field-hint">BP ≥ 140/90 mmHg</small>
+                                </div>
+
+                                <!-- Heart Disease -->
+                                <div class="form-group">
+                                    <label for="inputHeartDisease">Pre-existing Heart Disease <span class="required">*</span></label>
+                                    <select id="inputHeartDisease" name="heart_disease" class="form-control" required>
+                                        <option value="0">No Heart Disease</option>
+                                        <option value="1">Yes (Coronary / Arrhythmia)</option>
+                                    </select>
+                                    <small class="field-hint">Cardiovascular history</small>
+                                </div>
+
+                                <!-- Average Glucose Level -->
+                                <div class="form-group">
+                                    <label for="inputGlucose">Avg Blood Glucose (mg/dL) <span class="required">*</span></label>
+                                    <input type="number" id="inputGlucose" name="avg_glucose_level" min="40" max="350" step="0.1" value="120.0" required class="form-control">
+                                    <small class="field-hint">Normal: 70–140 mg/dL</small>
+                                </div>
+
+                                <!-- BMI -->
+                                <div class="form-group">
+                                    <label for="inputBmi">Body Mass Index (BMI) <span class="required">*</span></label>
+                                    <input type="number" id="inputBmi" name="bmi" min="10" max="80" step="0.1" value="28.5" required class="form-control">
+                                    <small class="field-hint">Normal: 18.5–24.9 kg/m²</small>
+                                </div>
+
+                                <!-- Smoking Status -->
+                                <div class="form-group">
+                                    <label for="inputSmoking">Smoking Status <span class="required">*</span></label>
+                                    <select id="inputSmoking" name="smoking_status" class="form-control" required>
+                                        <option value="never smoked">Never Smoked</option>
+                                        <option value="formerly smoked">Formerly Smoked</option>
+                                        <option value="smokes">Currently Smokes</option>
+                                        <option value="Unknown">Unknown History</option>
+                                    </select>
+                                    <small class="field-hint">Tobacco exposure</small>
+                                </div>
+
+                                <!-- Work Type -->
+                                <div class="form-group">
+                                    <label for="inputWorkType">Work Classification</label>
+                                    <select id="inputWorkType" name="work_type" class="form-control">
+                                        <option value="Private">Private Industry</option>
+                                        <option value="Self-employed">Self-employed</option>
+                                        <option value="Govt_job">Government Job</option>
+                                        <option value="children">Children / Student</option>
+                                        <option value="Never_worked">Never Worked</option>
+                                    </select>
+                                    <small class="field-hint">Occupational category</small>
+                                </div>
+
+                                <!-- Residence Type -->
+                                <div class="form-group">
+                                    <label for="inputResidence">Residence Location</label>
+                                    <select id="inputResidence" name="Residence_type" class="form-control">
+                                        <option value="Urban">Urban</option>
+                                        <option value="Rural">Rural</option>
+                                    </select>
+                                    <small class="field-hint">Geographic context</small>
+                                </div>
+                            </div>
+
+                            <div class="form-actions mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg" id="btnPredict">
+                                    <span>🩺 Predict Stroke Risk</span>
+                                </button>
+                                <button type="button" class="btn btn-outline" id="btnResetForm">Clear Form</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Prediction Results Card -->
+                <div class="card result-card" id="resultContainer">
+                    <div class="card-header">
+                        <h3>📊 Prediction Output & Factor Breakdown</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Placeholder State -->
+                        <div id="resultPlaceholder" class="placeholder-state">
+                            <div class="placeholder-icon">🩺</div>
+                            <h4>No Patient Prediction Computed Yet</h4>
+                            <p>Fill in the patient profile on the left or select a preset clinical vignette to evaluate stroke probability.</p>
+                        </div>
+
+                        <!-- Active Result View (hidden by default) -->
+                        <div id="resultActive" class="hidden">
+                            <!-- Class Badge -->
+                            <div class="result-badge-container">
+                                <span class="result-class-badge" id="resClassBadge">Elevated Stroke Risk</span>
+                            </div>
+
+                            <!-- Probability Gauge / Meter -->
+                            <div class="probability-box mt-3">
+                                <div class="prob-header">
+                                    <span class="prob-title">Estimated Model Probability</span>
+                                    <span class="prob-pct" id="resProbPct">72.4%</span>
+                                </div>
+                                <div class="prob-bar-container">
+                                    <div class="prob-bar-fill" id="resProbBar" style="width: 72.4%;"></div>
+                                </div>
+                                <span class="prob-note">Statistical probability estimated by champion model (Logistic Regression with cost-balanced weights).</span>
+                            </div>
+
+                            <!-- Influential Factors Breakdown -->
+                            <div class="factors-section mt-4">
+                                <h4>🔍 Patient-Specific Influential Risk Factors</h4>
+                                <div class="factors-list" id="resFactorsList">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Model Educational Disclaimer -->
+                            <div class="disclaimer-callout mt-4">
+                                <strong>⚠️ Model Notice:</strong>
+                                <span id="resDisclaimer">
+                                    EDUCATIONAL DEMONSTRATION NOTICE: This prediction represents an academic machine learning statistical estimate. It is NOT a clinically validated risk assessment, certified medical device, or diagnostic triage tool.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p><strong>Stroke Risk Prediction Using Machine Learning</strong> — Postgraduate Health Informatics Practical Project</p>
+            <p class="footer-sub">Built with Python, Scikit-learn, Pandas, Flask, and Vanilla Web Technologies. Strict Zero Data Leakage Pipeline.</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
