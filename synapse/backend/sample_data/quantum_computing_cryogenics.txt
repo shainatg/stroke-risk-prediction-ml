@@ -1,0 +1,13 @@
+Quantum Computing and Superconducting Cryogenics Technical Report
+Document ID: QC-CRY-2026-R4
+Primary Investigator: Advanced Systems Architecture Group
+
+1. Executive Summary & Principles
+Quantum computing fundamentally departs from classical binary architectures by harnessing the quantum mechanical principles of superposition and entanglement. While a classical bit is strictly bound to state 0 or 1, a quantum bit (qubit) exists in a continuous linear superposition alpha|0> + beta|1>. This allows an N-qubit system to simultaneously span 2^N dimensional Hilbert space.
+
+2. Thermal Noise and Cryogenic Dilution Refrigeration
+Superconducting qubits, fabricated from sub-micron Josephson junctions, are exceptionally vulnerable to environmental thermal noise, magnetic flux fluctuations, and photon-induced decoherence. To preserve quantum coherence times (T1 relaxation and T2 dephasing), the quantum processor chip must be isolated at deep cryogenic temperatures. 
+Dilution refrigerators utilizing a closed-cycle mixture of Helium-3 and Helium-4 isotopes achieve continuous base temperatures of 15 millikelvin (-273.135 degrees Celsius), mere fractions above absolute zero. Multiple concentric radiation shields (at 50K, 4K, and 100mK stages) dissipate parasitic blackbody radiation.
+
+3. Cryptographic Implications & Shor's Algorithm
+Peter Shor's 1994 quantum polynomial-time algorithm demonstrates that sufficiently scaled fault-tolerant quantum computers can compute discrete logarithms and prime factorizations in polynomial time O((log N)^3). Consequently, standard asymmetric cryptosystems, including RSA-2048, Diffie-Hellman, and Elliptic Curve Cryptography (ECC), will be rendered fundamentally obsolete once quantum hardware scales past several thousand logical qubits. Transitioning enterprise security to post-quantum cryptographic standards (such as ML-KEM and ML-DSA) is urgent.

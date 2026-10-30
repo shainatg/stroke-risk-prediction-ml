@@ -1,0 +1,14 @@
+patient_id,age,gender,hypertension,heart_disease,avg_glucose_level,bmi,smoking_status,stroke_risk
+PT-1001,67,Male,1,1,228.69,36.6,formerly smoked,High Risk
+PT-1002,61,Female,0,0,202.21,31.4,never smoked,High Risk
+PT-1003,80,Male,0,1,105.92,32.5,never smoked,High Risk
+PT-1004,49,Female,0,0,171.23,34.4,smokes,Moderate Risk
+PT-1005,79,Female,1,0,174.12,24.0,never smoked,High Risk
+PT-1006,81,Male,0,0,186.21,29.0,formerly smoked,High Risk
+PT-1007,74,Male,1,1,70.09,27.4,never smoked,High Risk
+PT-1008,69,Female,0,0,94.39,22.8,never smoked,Moderate Risk
+PT-1009,59,Female,0,0,76.15,26.0,Unknown,Low Risk
+PT-1010,78,Female,0,0,58.57,24.2,Unknown,Moderate Risk
+PT-1011,81,Female,1,0,80.43,29.7,never smoked,High Risk
+PT-1012,61,Female,0,1,120.46,36.8,smokes,Moderate Risk
+PT-1013,54,Male,0,0,104.51,27.3,smokes,Low Risk

@@ -1,0 +1,13 @@
+NASA Mars 2020 Mission: Perseverance Rover & MOXIE Oxygen Synthesis
+Mission Reference: NASA-JPL-MARS2020-SYS-09
+Target Site: Jezero Crater, Mars
+
+1. Mission Objectives & Instrumentation
+NASA's Perseverance rover successfully touched down in Jezero Crater on Mars on February 18, 2021. Jezero Crater was selected because ancient orbital spectroscopy revealed clay-rich delta deposits indicating a persistent standing body of liquid water billions of years ago. The rover's scientific payload comprises seven sophisticated instruments: Mastcam-Z, SuperCam, PIXL, SHERLOC, MEDA, RIMFAX, and MOXIE.
+
+2. In-Situ Oxygen Production via MOXIE
+The Mars Oxygen ISRU Experiment (MOXIE) demonstrated the critical milestone of generating breathable oxygen directly from Mars' thin, carbon-dioxide-dominated atmosphere (95% CO2). MOXIE draws in Martian atmospheric gas, pressurizes it using a scroll pump, heats it to 800 degrees Celsius, and applies solid oxide electrolysis across scandia-stabilized zirconia (YSZ) catalytic membranes.
+Across its complete operational campaign of 16 experimental runs, MOXIE successfully synthesized 122 grams of 98% pure breathable oxygen. At peak performance, MOXIE attained an extraction rate of 12 grams of oxygen per hour, doubling NASA's baseline design goals.
+
+3. The Ingenuity Helicopter
+Perseverance was accompanied to Mars by the Ingenuity Mars Helicopter, the first aircraft in history to achieve powered, controlled flight on another celestial planet. Originally budgeted for a 30-day technology demonstration of 5 flights, Ingenuity surpassed all projections, logging 72 powered atmospheric flights over nearly three years before suffering terminal rotor blade damage in January 2024.
