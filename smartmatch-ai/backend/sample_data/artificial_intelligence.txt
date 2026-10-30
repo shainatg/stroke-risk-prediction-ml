@@ -1,0 +1,9 @@
+# Fundamentals of Artificial Intelligence and Machine Learning
+
+Artificial intelligence (AI) is the simulation of human intelligence processes by computer systems. These processes include the acquisition of information, the application of reasoning rules to reach approximate or definite conclusions, and self-correction.
+
+Natural Language Processing (NLP) is a specialized branch of artificial intelligence focused on enabling computers to understand, interpret, and manipulate human language. Core NLP tasks include text classification, sentiment analysis, named entity recognition, and semantic similarity measurement using vector space models.
+
+Term Frequency-Inverse Document Frequency (TF-IDF) is a foundational statistical method in NLP. It evaluates how important a word is to a document within a larger collection or corpus. Words that appear frequently in a specific paragraph but rarely across the rest of the document receive the highest mathematical weights.
+
+Cosine similarity evaluates the orientation rather than magnitude between two multi-dimensional numerical vectors. By calculating the cosine of the angle between query and document vectors, systems can retrieve the most relevant passages regardless of paragraph length.

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom delicate glass & border effects for white/light-blue theme */
+.card-soft {
+  background: #ffffff;
+  border: 1px solid rgba(186, 226, 253, 0.6);
+  box-shadow: 0 4px 20px -2px rgba(14, 165, 233, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
+.card-soft:hover {
+  border-color: rgba(56, 174, 249, 0.8);
+  box-shadow: 0 10px 25px -4px rgba(14, 165, 233, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Subtle animated gradient accent line */
+.gradient-bar {
+  background: linear-gradient(90deg, #0284c7 0%, #38aef9 50%, #6366f1 100%);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

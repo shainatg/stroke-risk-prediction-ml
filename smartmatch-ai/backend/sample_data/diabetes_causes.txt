@@ -1,0 +1,12 @@
+# Clinical Overview of Diabetes Mellitus and Metabolic Pathophysiology
+
+Diabetes mellitus is a chronic metabolic disorder characterized by elevated levels of blood glucose over a prolonged period. The disease results from either insufficient insulin production by pancreatic beta cells, or the body cells failing to respond appropriately to the insulin produced.
+
+What are the main causes of diabetes?
+The primary causes of diabetes depend on the specific classification. Type 1 diabetes is primarily caused by an autoimmune reaction where the immune system mistakenly attacks and destroys insulin-producing beta cells in the islet of Langerhans within the pancreas. Genetic susceptibility, human leukocyte antigen (HLA) genotypes, and environmental triggers such as viral infections are significant contributing factors.
+
+In contrast, Type 2 diabetes develops from a combination of chronic insulin resistance and progressive secretory deficiency. The predominant risk factors and root causes include prolonged obesity, physical inactivity, atherogenic diets high in refined sugars and saturated fats, advancing age, and strong familial genetic predispositions. Chronic low-grade systemic inflammation and visceral adiposity disrupt insulin signaling pathways in hepatic, muscular, and adipose tissues.
+
+Gestational diabetes occurs during pregnancy when placental hormones impair maternal insulin sensitivity, causing blood glucose levels to elevate beyond normal thresholds.
+
+Management and therapeutic interventions include regular physical aerobic activity, balanced carbohydrate-controlled nutrition, continuous glucose monitoring, oral antihyperglycemic pharmacotherapy such as metformin and SGLT2 inhibitors, and exogenous subcutaneous insulin replacement when indicated.
